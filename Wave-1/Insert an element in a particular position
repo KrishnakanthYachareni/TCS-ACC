@@ -1,0 +1,105 @@
+Write a program to insert an element in the particular position in a given Linkedlist
+
+Input
+
+In first line, there are two integer numbers (X and P) will be given. First number(X) is the element to be inserted inside the linkedlist, Second number(P) is the position where the element X to be inserted in the linkedlist. In second line, You are provided with a set of integer elements as a linkedlist (Ni, i is 0,1,...n) followed by white spaces and ends with NULL indicates end of linkedlist.
+
+Output
+
+You have to print the new linkedlist elements after the insertion
+
+Example
+
+Input:
+3 0
+1 2 NULL
+
+Output:
+3 1 2 NULL
+
+.....................................................................................................................................
+
+import java.util.Scanner;
+class LinkedList
+{
+	Node head; // head of list
+
+	/* Linked list Node*/
+	class Node
+	{
+		int data;
+		Node next;
+		Node(int d)
+		{
+			data = d;
+			next = null;
+		}
+	}
+
+	/* Inserts a new Node at front of the list. */
+	public void push(int new_data)
+	{
+		/* 1 & 2: Allocate the Node &
+				Put in the data*/
+		Node new_node = new Node(new_data);
+
+		/* 3. Make next of new Node as head */
+		new_node.next = head;
+
+		/* 4. Move the head to point to new Node */
+		head = new_node;
+	}
+
+	/* Given a reference (pointer to pointer) to the head of a list
+	and a position, deletes the node at the given position */
+	void deleteNode(int new_data,int position)
+	{
+		// If linked list is empty
+		Node new_node = new Node(new_data);
+		
+		//if (head == null)
+			//return;
+		if(position == 0)
+		{
+			new_node.next = head;
+			head = new_node;
+		}
+		else if(position > 0)
+		{	Node temp = head;
+			int i;
+			for (i=1; temp!=null && i<=position-1; i++){
+				temp = temp.next;
+			}
+			if(i==position){
+					new_node.next = temp.next;
+					temp.next = new_node;
+					
+				}
+			
+		} 
+	}
+	public void printList()
+	{
+		Node tnode = head;
+		while (tnode != null)
+		{
+			System.out.print(tnode.data+" ");
+			tnode = tnode.next;
+		}
+		System.out.print("NULL");
+	}
+	public static void main(String[] args)
+	{
+		LinkedList llist = new LinkedList();
+		Scanner sc = new Scanner(System.in);
+		String str1 = sc.nextLine();
+		String strA1[]=str1.split(" ");
+        String str = sc.nextLine();
+		String strA[]=str.split(" ");
+		for(int i=strA.length-2;i>=0;i--){
+			llist.push(Integer.parseInt(strA[i]));
+		}
+		llist.deleteNode(Integer.parseInt(strA1[0]),Integer.parseInt(strA1[1]));
+		llist.printList();
+	}
+}

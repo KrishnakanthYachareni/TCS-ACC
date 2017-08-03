@@ -1,0 +1,55 @@
+Add the given 2 matrices.
+
+Input
+
+The first line of input contains two numbers m and n (1 ≤ m, n ≤ 200) corresponding to the number of rows and columns of the matrix respectively. It is then followed by the numbers in m*n as M1 and then followed by the next set of numbers in m*n as M2 matrix.
+
+Output
+
+The output should contain the addition of the two matrices (M1 + M2).
+
+Example
+
+Input:
+2 3
+1 2 5
+2 3 3
+0 5 2
+2 4 5
+
+Output:
+1 7 7
+4 7 8
+...................................................................................................................................
+
+import java.util.*;
+ class TestClass {
+    public static void main(String args[] ) throws Exception {
+        int m, n, c, d;
+      Scanner in = new Scanner(System.in);
+      m = in.nextInt();
+      n  = in.nextInt();
+      int first[][] = new int[m][n];
+      int second[][] = new int[m][n];
+      int sum[][] = new int[m][n];
+ 
+      for (  c = 0 ; c < m ; c++ )
+         for ( d = 0 ; d < n ; d++ )
+            first[c][d] = in.nextInt();
+ 
+      for ( c = 0 ; c < m ; c++ )
+         for ( d = 0 ; d < n ; d++ )
+            second[c][d] = in.nextInt();
+ 
+      for ( c = 0 ; c < m ; c++ )
+         for ( d = 0 ; d < n ; d++ )
+             sum[c][d] = first[c][d] + second[c][d];
+ 
+      for ( c = 0 ; c < m ; c++ )
+      {
+         for ( d = 0 ; d < n ; d++ )
+            System.out.print(sum[c][d]+" ");
+			System.out.println();
+      }
+    }
+}

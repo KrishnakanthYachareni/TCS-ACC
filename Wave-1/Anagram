@@ -1,0 +1,199 @@
+Anagram
+Given an English text print out the list of words and their anagrams in their order of occurrence. Word A is an anagram of word B if it can be derived from word B by merely shuffling the letters in word B.
+
+Important Note
+
+Text can contain words in upper case as well as lower case and punctuation marks Anagrams are not to be case sensitive The word and its anagrams are to be printed in the order of their occurrence in the text, separated by a blank. If a word has no anagram in the text, then do not print it
+If a word or its anagram occurs more than once do not print it again Numbers are to be considered as valid words
+
+Input
+
+You are provided with a text containing K English words (where K <= 5000), with spaces and punctuation marks.
+
+Output
+
+The output should contain the word (in its order of occurrence in the text) and its set of anagrams in the text (again in their order of occurrence), separated by blanks
+
+Each new list of words and anagrams should begin on a new line
+All words in the output should be printed in lower case characters
+Example
+
+Input:
+Parts of the world have sunlight for close to 24 hours during summer. Dan went to the north pole to lead an expedition during summer. He had a strap on his head to identify himself as the leader. Dan had to deal with the sun never going down for 42 consecutive days and his leadership strap soon became a blindfold. He wondered what kind of traps lay ahead of him.
+
+Output:
+parts strap traps
+24 42
+dan and
+lead deal
+........................................................................................................................
+import java.io.*;
+import java.util.*;
+class Anagram
+{
+    String str,a[],result[];
+    StringTokenizer st;
+    StringBuffer presenttoken,bz;
+    int nooftoken,i,lenpresenttoken,j,ct,len,matches,m,n;
+    char ch,chara,charb;
+    BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+    void getInput()throws IOException
+    {
+        str=in.readLine();
+        str=str.toLowerCase();
+        convertToTokens();
+        removePunctuation();
+        calculate();
+    }
+    void convertToTokens()
+    {
+        st=new StringTokenizer(str);
+        nooftoken=st.countTokens();
+        a=new String[nooftoken];
+        result=new String[nooftoken];
+        for(i=0; i<nooftoken; i++)
+        {
+            a[i]=st.nextToken().toString();
+        }
+    }
+    void removePunctuation()
+    {
+        for(i=0; i<nooftoken; i++)
+        {
+            presenttoken=new StringBuffer(a[i]);
+            lenpresenttoken=presenttoken.length();
+            ch=presenttoken.charAt(lenpresenttoken-1);
+            if( (ch=='.') || (ch=='?') || (ch=='!') )
+            {
+                presenttoken=presenttoken.deleteCharAt(lenpresenttoken-1);
+                a[i]=presenttoken.toString();
+            }
+        }
+    }
+    void calculate()
+    {
+        norepeats();
+        findAnagram();
+    }
+    void norepeats()
+    {
+        for(i=0; i<(nooftoken-1); i++)
+        {
+            for(j=i+1; j<nooftoken; j++)
+            {
+                if(a[i].equals(a[j]))
+                    a[j]="";
+            }
+        }
+    }
+    void display()
+    {
+        for(i=0; i<nooftoken; i++)
+        {
+            System.out.print(a[i]+" ");
+        }
+    }
+    void findAnagram()
+    {
+        for(i=0; i<(nooftoken-1); i++)
+        {
+            if(a[i].length()==0)
+                continue;
+            else
+            {
+                result[0]=a[i];
+                ct=1;
+                for(j=i+1; j<nooftoken; j++)
+                {
+                    if(a[j].length()==0)
+                        continue;
+                    else
+                    {
+                        if(compareLengths(a[i],a[j]))
+                        {
+                            if(areAnagram(a[i],a[j]))
+                            {
+                                addtoResult(a[j],ct);
+                                a[j]="";
+                                ct++;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+                if(ct!=1)
+                {
+             
+                displayResult();
+                System.out.println();
+                }
+            }
+        }
+    }
+    boolean compareLengths(String a, String b)
+    {
+        if(a.length()==b.length())
+            return true;
+        else
+            return false;
+    }
+    boolean areAnagram(String a,String b)
+    {
+        bz=convertToStringBuffer(b);
+        len=a.length();
+        matches=0;
+        for(m=0; m<len; m++)
+        {
+            chara=a.charAt(m);
+            for(n=0; n<len; n++)
+            {
+                charb=bz.charAt(n);
+                if(chara==charb)
+                {
+                    matches=matches+1;
+                    bz.deleteCharAt(n);
+                    bz.insert(n,' ');
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+        if(matches==len)
+            return true;
+        else
+            return false;
+    }
+    StringBuffer convertToStringBuffer(String str)
+    {
+        return(new StringBuffer(str));
+    }
+    void addtoResult(String a,int b)
+    {
+        result[b]=a;
+    }
+    void displayResult()
+    {
+        for(int u=0; u<ct; u++)
+        {
+            System.out.print(result[u]+" ");
+        }
+    }           
+}
+class NewAnagram
+{
+    public static void main(String args[])throws IOException
+    {
+        Anagram ob=new Anagram();
+        ob.getInput();
+    }
+}
