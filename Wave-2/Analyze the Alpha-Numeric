@@ -1,0 +1,62 @@
+For the given Alpha-Numeric string, Print '0' for an alphabetic letter with the odd occurrence (in the alphabetical order) or the odd number and print '1' for an alphabetic letter with the even occurrence (in the alphabetical order) or the even number
+
+Important Note
+
+In the given string, continuous digits is taken as a number (In "A23b4", 23 and 4 are taken as separate numbers)
+
+Input
+
+You are provided with an Alpha-Numeric string
+
+Output
+
+Combination of 1 and 0, based on the above conditions
+
+Example
+
+Input:
+A23b4
+
+Output:
+0011
+.............................................JAVA CODE...........................................................................
+
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+class alpha2{
+	public static void main(String args[]) throws Exception{
+		Scanner sc = new Scanner(System.in);
+		Matcher m = Pattern.compile("\\d+|[a-zA-Z]").matcher(sc.nextLine());
+		List<String> res = new ArrayList<>();
+
+		while (m.find()) {
+			res.add(m.group());
+		}    
+		String[] array = res.toArray(new String[res.size()]);
+			int i=0;
+			while(i<array.length){
+			String str1=array[i];
+		
+			if(Character.isLetter(str1.charAt(0))){
+				int ascii= (int)str1.charAt(0);	
+				if(ascii%2==0)
+				{
+					System.out.print(1);
+				}
+				else
+				{
+					System.out.print(0);
+				}
+			}else{
+				if(Integer.parseInt(array[i])%2==0){
+				System.out.print(1);
+				}else{
+					System.out.print(0);
+				}
+			}
+			i++;
+		}		
+	}
+	
+}
