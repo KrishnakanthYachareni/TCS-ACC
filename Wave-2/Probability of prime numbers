@@ -1,0 +1,52 @@
+Write a program to find the probability of prime numbers in a given set
+
+Input
+
+You are provided with a set of positive integer numbers followed by white spaces. You can assume that no number has more than 7 digits (upto 9999999).
+
+Output
+
+Should print the probability of the prime numbers present in the set with maximum of 4 decimal point (Ex: If the probability is 0.21228123 the output should be 0.2123).
+
+Example
+
+Input:
+456 948 1256 281 8048
+
+Output:
+0.2
+...............................................JAVA CODE...................................................................
+import java.util.*;
+import java.text.DecimalFormat;
+class Prime{
+	static int a=0;
+	public static void main(String args[]){
+		
+		int i,n,j,counter;
+		
+		Scanner sc=new Scanner(System.in);
+		String str =sc.nextLine();
+		String strA[]=str.split(" ");
+		int ar[]=new int[strA.length];
+		for(int k=0;k<strA.length;k++)
+			ar[k]=Integer.parseInt(strA[k]);
+		for(i=0;i<ar.length;i++){
+           counter=0;
+           for(j=2;j<ar[i];j++)
+           {
+                 if(ar[i]%j==0)
+                 {
+                    counter=1;
+                    break;
+                 }
+           }
+           if(counter==0)
+			   a++;
+		   }
+		DecimalFormat df = new DecimalFormat();
+		df.setMaximumFractionDigits(4);
+		float d=(float)a/(float)ar.length;
+		System.out.println(df.format((float)d));
+	}
+	
+}
