@@ -1,0 +1,98 @@
+Write a program to print the updated stack elements
+
+Input
+
+The first line should contain the initial stack elements(E1,E2,..Ei) separated by white spaces. 
+The second line of input should contain an integer number N ( 1 <= N <= 1000), which tells the number of operations 
+to be applied on the stack elements.
+The subsequent line of inputs should be the N number of instructions that is to be applied on the stack elements separated by new line.
+The following are the operations that can be applied on the stack elements.
+-1 -> To pop a number from the stack.
+1 -> To push a number into the stack.
+To pop a number, the instruction that is to be provided is -1. To push a number into the stack, first you need provide the instruction as 1 followed by the 'number' that needs to the pushed into the stack.
+
+Output
+
+Print the new updated stack elements. All elements of the sequence should be separated with a white space.
+Example
+Input:
+1 2 3 4 5 6
+3
+-1
+-1
+1 7
+Output:
+1 2 3 4 7
+Explanation
+
+In the above example input, the first line consists of stack elements (1 2 3 4 5 6). 
+The next line indicates the no.of operations to be performed on the stack elements(i.e 3). 
+So totally 3 operations can be performed on the elements. 
+The next 2 lines indicates the pop operation (instruction number is -1) that will be applied on the elements. 
+The last line is the push operation where the first number is the push operation (instruction number is 1) followed by the number that needs to be pushed.
+
+......................................................................................JAVA Code.........................................
+
+import java.util.*;
+import java.io.*;
+class MyStack {
+   private int maxSize;
+   private long[] stackArray;
+   private int top;
+   static int a=0;
+   
+   public MyStack(int s) {
+      maxSize = s;
+      stackArray = new long[maxSize];
+      top = -1;
+   }
+   public void push(long j) {
+      stackArray[++top] = j;
+   }
+   public long pop() {
+      return stackArray[top--];
+   }
+   public long peek() {
+      return stackArray[top];
+   }
+   public boolean isEmpty() {
+      return (top == -1);
+   }
+   public boolean isFull() {
+      return (top == maxSize - 1);
+   }
+   public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String str =sc.nextLine();
+		String strA[]=str.split(" ");
+		int limit =sc.nextInt();
+		if(1<=limit&&limit<=1000){
+		MyStack theStack = new MyStack(strA.length+limit);
+		a=strA.length;
+		for(int i=0;i<strA.length;i++){
+		theStack.push(Integer.parseInt(strA[i]));
+		}
+
+		for(int i = 0; i < limit; i++)
+		{
+			int ar=sc.nextInt();
+			if(ar==-1){
+				theStack.pop();
+				a--;
+			}
+			else if(ar==1){
+				a++;
+				theStack.push(sc.nextInt());
+			}
+		}
+		int ar[] =new int[a];
+		int j=0;
+      while (!theStack.isEmpty()) {
+		 ar[j]=(int)theStack.pop();
+		 j++;
+      }
+	  for(int i=ar.length-1;i>=0;i--)
+		System.out.print(ar[i]+" ");
+   }
+   }
+}
