@@ -22,23 +22,30 @@ In the above example, 4th element (88) is addition of adjacent elements 3rd and 
 ...................................................................................................................................
 
 import java.util.*;
-class TestClass {
+class Bond {
     public static void main(String args[] ) {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
 		String strA[]=str.split(" ");
 		int a[]= new int[strA.length];
+		ArrayList<Integer> list=new ArrayList<Integer>();
 		for(int i=0;i<strA.length;i++){
 			a[i]=Integer.parseInt(strA[i]);
 		}
 		try{
 		for(int i=0;i<strA.length;i++){
 			if(a[i]+a[i+2] == a[i+1]){
-			System.out.println(a[i+1]);
-		}
+				list.add(a[i+1]);
+			//System.out.print(a[i+1]+" ");
+			}
 		}
 		}catch(Exception e){
 		    
+		}
+		Collections.sort(list);
+		Iterator itr=list.iterator();  
+		while(itr.hasNext()){  
+		System.out.print(itr.next()+" ");
 		}
     }
 }
